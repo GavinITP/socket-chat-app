@@ -1,10 +1,16 @@
-import { Button } from "@chakra-ui/react";
+// import { Button } from "@chakra-ui/react";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Chat from "./pages/Chat";
 
 const App = () => {
   return (
-    <div>
-      <Button>Click</Button>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chats" element={<Chat />} />
+      </Routes>
+    </>
   );
 };
 

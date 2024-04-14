@@ -1,10 +1,17 @@
 import express from "express";
 import dotenv from "dotenv";
 import { chats } from "./data/data";
+import cors from "cors";
 
 dotenv.config({ path: ".env" });
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("Hello");
