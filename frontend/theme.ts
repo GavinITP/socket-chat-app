@@ -3,8 +3,8 @@ import "@fontsource-variable/inter";
 
 const theme = extendTheme({
   fonts: {
-    heading: `'Inter', sans-serif`,
-    body: `'Inter', sans-serif`,
+    heading: `'Inter Variable', sans-serif`,
+    body: `'Inter Variable', sans-serif`,
   },
 });
 
