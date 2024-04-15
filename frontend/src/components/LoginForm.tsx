@@ -8,16 +8,69 @@ import {
   Icon,
   Button,
   Box,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
+import { Axios } from "../services/axios";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const toast = useToast();
+
+  const submitHandler = async () => {
+    if (!email || !password) {
+      toast({
+        title: "Please fill all the fields",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+
+      return;
+    }
+
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const { data } = await Axios.post(
+        "/api/auth/login",
+        {
+          email,
+          password,
+        },
+        config
+      );
+
+      toast({
+        title: "Login success",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (err) {
+      type errType = { response: { data: { message: string } } };
+
+      toast({
+        title: "Something went wrong!",
+        description: (err as errType).response?.data?.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <VStack spacing={4}>
@@ -63,6 +116,7 @@ const LoginForm = () => {
           color={"white"}
           borderRadius={"full"}
           _hover={{ bgColor: "gray.200", color: "black" }}
+          onClick={submitHandler}
         >
           Log in
         </Button>
