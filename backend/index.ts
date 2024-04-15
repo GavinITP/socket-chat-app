@@ -11,6 +11,7 @@ import { chats } from "./data/data";
 import connectDB from "./config/db";
 
 // routes
+import user from "./routes/user";
 
 // set up
 dotenv.config({ path: "config/.env" });
@@ -24,16 +25,7 @@ app.use(express.json());
 app.use(cors());
 
 // routes
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
-app.get("/api/chat", (req, res) => {
-  res.send(chats);
-});
-app.get("/api/chat/:id", (req, res) => {
-  const singleChat = chats.find((c) => c._id === req.params.id);
-  res.send(singleChat);
-});
+app.use("/api/auth", user);
 
 // listen
 const PORT = process.env.PORT || 9000;
