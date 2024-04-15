@@ -16,7 +16,7 @@ import RegisterForm from "../components/RegisterForm";
 
 import { MdMarkUnreadChatAlt } from "react-icons/md";
 
-const Home = () => {
+const Auth = () => {
   return (
     <Container maxW="xl" centerContent>
       <Flex my={8} gap={4} flexDirection={"column"} justifyContent={"center"}>
@@ -77,4 +77,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Auth;
