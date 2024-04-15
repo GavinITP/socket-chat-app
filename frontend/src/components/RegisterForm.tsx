@@ -91,7 +91,15 @@ const RegisterForm = () => {
           </InputGroup>
         </Box>
 
-        <Button my={8}>Submit</Button>
+        <Button
+          my={8}
+          bgColor={"black"}
+          color={"white"}
+          borderRadius={"full"}
+          _hover={{ bgColor: "gray.200", color: "black" }}
+        >
+          Submit
+        </Button>
       </FormControl>
     </VStack>
   );
