@@ -62,7 +62,7 @@ const LoginForm = () => {
           borderRadius={"full"}
           _hover={{ bgColor: "gray.200", color: "black" }}
         >
-          Submit
+          Log in
         </Button>
       </FormControl>
     </VStack>

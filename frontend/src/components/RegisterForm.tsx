@@ -98,7 +98,7 @@ const RegisterForm = () => {
           borderRadius={"full"}
           _hover={{ bgColor: "gray.200", color: "black" }}
         >
-          Submit
+          Create account
         </Button>
       </FormControl>
     </VStack>
