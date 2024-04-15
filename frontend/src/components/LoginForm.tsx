@@ -14,6 +14,7 @@ import { useState } from "react";
 
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { Axios } from "../services/axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -22,6 +23,8 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const toast = useToast();
+
+  const navigate = useNavigate();
 
   const submitHandler = async () => {
     if (!email || !password) {
@@ -59,6 +62,8 @@ const LoginForm = () => {
       });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
+
+      navigate("/chats");
     } catch (err) {
       type errType = { response: { data: { message: string } } };
 
