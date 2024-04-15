@@ -25,6 +25,7 @@ const LoginForm = () => {
         <Box>
           <FormLabel fontSize={"14px"}>Email</FormLabel>
           <Input
+            id="login-email"
             placeholder="Email"
             onChange={(e) => {
               setEmail(e.target.value);
@@ -36,6 +37,7 @@ const LoginForm = () => {
           <FormLabel fontSize={"14px"}>Password</FormLabel>
           <InputGroup>
             <Input
+              id="login-password"
               pr={10}
               type={showPassword ? "text" : "password"}
               placeholder="Password"
