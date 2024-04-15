@@ -23,10 +23,10 @@ const RegisterForm = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <VStack spacing={4}>
-      <FormControl isRequired display={"flex"} flexDirection={"column"} gap={6}>
+    <VStack>
+      <FormControl isRequired display={"flex"} flexDirection={"column"} gap={4}>
         <Box>
-          <FormLabel>Name</FormLabel>
+          <FormLabel fontSize={"14px"}>Name</FormLabel>
           <Input
             placeholder="Your name"
             onChange={(e) => {
@@ -36,7 +36,7 @@ const RegisterForm = () => {
         </Box>
 
         <Box>
-          <FormLabel>Email</FormLabel>
+          <FormLabel fontSize={"14px"}>Email</FormLabel>
           <Input
             placeholder="Email"
             onChange={(e) => {
@@ -46,7 +46,7 @@ const RegisterForm = () => {
         </Box>
 
         <Box>
-          <FormLabel>Password</FormLabel>
+          <FormLabel fontSize={"14px"}>Password</FormLabel>
           <InputGroup>
             <Input
               pr={10}
@@ -58,7 +58,7 @@ const RegisterForm = () => {
             />
             <InputRightElement width="4.5rem">
               <Icon
-                boxSize={6}
+                boxSize={5}
                 as={showPassword ? IoMdEyeOff : IoMdEye}
                 onClick={() => {
                   setShowPassword((prev) => !prev);
@@ -69,7 +69,7 @@ const RegisterForm = () => {
         </Box>
 
         <Box>
-          <FormLabel>Confirm Password</FormLabel>
+          <FormLabel fontSize={"14px"}>Confirm Password</FormLabel>
           <InputGroup>
             <Input
               pr={10}
@@ -81,7 +81,7 @@ const RegisterForm = () => {
             />
             <InputRightElement width="4.5rem">
               <Icon
-                boxSize={6}
+                boxSize={5}
                 as={showConfirmPassword ? IoMdEyeOff : IoMdEye}
                 onClick={() => {
                   setShowConfirmPassword((prev) => !prev);
@@ -92,7 +92,7 @@ const RegisterForm = () => {
         </Box>
 
         <Button
-          my={8}
+          mt={6}
           bgColor={"black"}
           color={"white"}
           borderRadius={"full"}

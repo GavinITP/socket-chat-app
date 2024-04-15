@@ -21,9 +21,9 @@ const LoginForm = () => {
 
   return (
     <VStack spacing={4}>
-      <FormControl isRequired display={"flex"} flexDirection={"column"} gap={6}>
+      <FormControl isRequired display={"flex"} flexDirection={"column"} gap={4}>
         <Box>
-          <FormLabel>Email</FormLabel>
+          <FormLabel fontSize={"14px"}>Email</FormLabel>
           <Input
             placeholder="Email"
             onChange={(e) => {
@@ -33,7 +33,7 @@ const LoginForm = () => {
         </Box>
 
         <Box>
-          <FormLabel>Password</FormLabel>
+          <FormLabel fontSize={"14px"}>Password</FormLabel>
           <InputGroup>
             <Input
               pr={10}
@@ -56,7 +56,7 @@ const LoginForm = () => {
         </Box>
 
         <Button
-          my={8}
+          mt={8}
           bgColor={"black"}
           color={"white"}
           borderRadius={"full"}
