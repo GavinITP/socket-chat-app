@@ -74,3 +74,38 @@ export const fetchChat = async (req: Request, res: Response) => {
       .json({ success: false, message: (err as Error).message });
   }
 };
+
+export const createGroupChat = async (req: Request, res: Response) => {
+  try {
+    if (!req.body.users || !req.body.name) {
+      return res.status(400).send({ message: "Please Fill all the feilds" });
+    }
+
+    let users = JSON.parse(req.body.users);
+
+    if (users.length < 2) {
+      return res
+        .status(400)
+        .send("More than 2 users are required to form a group chat");
+    }
+
+    users.push(req.user);
+
+    const groupChat = await Chat.create({
+      chatName: req.body.name,
+      users: users,
+      isGroupChat: true,
+      groupAdmin: req.user,
+    });
+
+    const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
+      .populate("users", "-password")
+      .populate("groupAdmin", "-password");
+
+    return res.status(200).json(fullGroupChat);
+  } catch (err) {
+    return res
+      .status(400)
+      .json({ success: false, message: (err as Error).message });
+  }
+};
