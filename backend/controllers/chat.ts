@@ -132,3 +132,84 @@ export const renameGroup = async (req: Request, res: Response) => {
     res.json(updatedChat);
   }
 };
+
+export const removeFromGroup = async (req: Request, res: Response) => {
+  const { chatId, userId } = req.body;
+
+  if (userId === req.user.id) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Cannot remove yourself" });
+  }
+
+  const chat = await Chat.findById(chatId)
+    .populate("users", "-password")
+    .populate("groupAdmin", "-password");
+
+  if (!chat) {
+    return res.status(404).json({ success: false, message: "Chat not found" });
+  }
+
+  // Check if the requester is the group admin
+  if (chat.groupAdmin?._id.toString() !== req.user.id) {
+    return res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+
+  const removed = await Chat.findByIdAndUpdate(
+    chatId,
+    {
+      $pull: { users: userId },
+    },
+    {
+      new: true,
+    }
+  )
+    .populate("users", "-password")
+    .populate("groupAdmin", "-password");
+
+  if (!removed) {
+    return res
+      .status(404)
+      .json({ success: false, message: "User not found in chat" });
+  }
+
+  return res.json(removed);
+};
+
+export const addToGroup = async (req: Request, res: Response) => {
+  const { chatId, userId } = req.body;
+
+  // check if the requester is admin
+  if (userId === req.user.id) {
+    return res
+      .status(400)
+      .json({ success: false, message: "can not add yourself" });
+  }
+
+  const chat = await Chat.findById(chatId)
+    .populate("users", "-password")
+    .populate("groupAdmin", "-password");
+
+  if (!chat) {
+    return res.status(404).json({ success: false, message: "Chat not found" });
+  }
+
+  // check if the requester is the group admin
+  if (chat.groupAdmin?._id.toString() !== req.user.id) {
+    return res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+
+  const added = await Chat.findByIdAndUpdate(
+    chatId,
+    {
+      $push: { users: userId },
+    },
+    {
+      new: true,
+    }
+  )
+    .populate("users", "-password")
+    .populate("groupAdmin", "-password");
+
+  return res.json(added);
+};
