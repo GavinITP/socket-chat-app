@@ -11,7 +11,11 @@ declare global {
   }
 }
 
-const protect = async (req: Request, res: Response, next: NextFunction) => {
+export const protect = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const token = req.header("Authorization")?.split(" ")[1];
 
   if (!token || token == "null") {
@@ -37,5 +41,3 @@ const protect = async (req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-export { protect };

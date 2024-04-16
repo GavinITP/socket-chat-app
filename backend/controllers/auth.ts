@@ -1,7 +1,7 @@
 import User from "../models/user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { UserType } from "../types";
+import { SearchQuery, UserType } from "../types";
 import { Request, Response } from "express";
 
 const generateToken = (user: UserType) => {
@@ -88,4 +88,22 @@ export const login = async (req: Request, res: Response) => {
     console.error((err as Error).message);
     res.status(500).send("Server Error");
   }
+};
+
+export const getAllUsers = async (req: Request, res: Response) => {
+  const keyword: SearchQuery = req.query.search
+    ? {
+        $or: [
+          { name: { $regex: req.query.search as string, $options: "i" } },
+          { email: { $regex: req.query.search as string, $options: "i" } },
+        ],
+      }
+    : {};
+
+  const users = User.find({
+    $and: [keyword, { _id: { $ne: req.user._id } }],
+  });
+
+  const results = await users.exec();
+  res.send(results);
 };

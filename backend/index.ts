@@ -12,6 +12,7 @@ import connectDB from "./config/db";
 
 // routes
 import user from "./routes/user";
+import chat from "./routes/chat";
 
 // set up
 dotenv.config({ path: "config/.env" });
@@ -26,6 +27,7 @@ app.use(cors());
 
 // routes
 app.use("/api/auth", user);
+app.use("/api/chat", chat);
 
 // listen
 const PORT = process.env.PORT || 9000;
